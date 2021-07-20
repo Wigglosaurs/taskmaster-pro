@@ -44,21 +44,26 @@ var saveTasks = function () {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
+// task text was clicked
 $(".list-group").on("click", "p", function () {
+  // get current text of p element
   var text = $(this)
     .text()
     .trim();
 
+  // replace p element with a new textarea
   var textInput = $("<textarea>")
     .addClass("form-control")
     .val(text);
 
+  // auto focus new element
   $(this).replaceWith(textInput);
   textInput.trigger("focus");
 });
 
+// editable field was un-focused
 $(".list-group").on("blur", "textarea", function () {
-  // great the textarea's current value/text
+  // get current value of textarea
   var text = $(this)
     .val()
     .trim();
@@ -74,6 +79,7 @@ $(".list-group").on("blur", "textarea", function () {
     .closest(".list-grou-item")
     .index();
 
+  // update task in array and re-save to localStorage
   tasks[status][index].text = text;
   saveTasks();
 
@@ -102,7 +108,7 @@ $(".list-group").on("click", "span", function () {
   // swap out elements
   $(this).replaceWith(dateInput);
 
-  // automatically focus on new element
+  // automatically bring up the calendar
   dateInput.trigger("focus");
 });
 
